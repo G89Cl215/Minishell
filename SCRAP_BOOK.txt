@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    SCRAP_BOOK.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/03/17 14:47:31 by tgouedar          #+#    #+#              #
+#    Updated: 2019/03/27 21:17:32 by tgouedar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+o>	comment lire l'entree standard ? idee GNL 0. > Ca marche ! \0/
+o>	premiere fonction, rentree dans , l' "OS" : grande boucle qui s'arrete sur
+exit (quit, CTRL + C ? ) > mise en place du wait process. \0/
+o>	Gestion de l'environnement : dois-je gerer le stockage, la modification et
+l'interpretation du bousin ? ou rebalancer les var sys comme un sac ?
