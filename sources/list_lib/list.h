@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 16:08:10 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/04/29 22:39:39 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:06:57 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 typedef struct				s_arglist
 {
 	char					*arg;
-	int						to_link;
+	char					to_link;
+	char					delim;
 	struct s_arglist		*next;
 }							t_arglist;
 

@@ -6,14 +6,14 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 18:40:46 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/04/06 18:11:29 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:18:25 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <string.h>
+# include "option.h"
 # include <inttypes.h>
 
 typedef struct		s_list
@@ -72,6 +72,7 @@ void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+int					ft_strisnum(char *str);
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int					ft_strequ(char const *s1, char const *s2);
@@ -83,6 +84,9 @@ int					ft_strprefix(char **dest, char **src);
 char				*ft_strtrim(char const *s);
 char				*ft_strrev(char *str);
 void				ft_strupper(char *str);
+size_t				ft_tablen(char **tab);
+char				**ft_tabcpy(char **tab);
+void				ft_tabfree(char **tab);
 char				**ft_strsplit(char const *s, char c);
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
@@ -107,6 +111,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_lstadd_back(t_list **alst, t_list *new_back);
 int					integer_len(int nbr);
 int					get_next_line(const int fd, char **line);
+int					ft_option(char ***av, t_options *options);
 int					match(char *s1, char *s2);
 int					ft_printf(const char *restrict format, ...);
 

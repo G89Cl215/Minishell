@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfreeone.c                                    :+:      :+:    :+:   */
+/*   ft_tabfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 01:47:36 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/05/06 17:53:39 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/05/20 16:47:22 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/05/20 16:51:16 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_listfreeone(t_arglist **alst)
+void	ft_tabfree(char **tab)
 {
-	if (alst && *alst)
-	{
-		free((*alst)->arg);
-		ft_memdel((void**)alst);
-	}
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+		ft_strdel(&(tab[i++]));
+	ft_memdel((void**)tab);
 }

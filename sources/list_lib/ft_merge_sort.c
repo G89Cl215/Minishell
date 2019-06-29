@@ -6,11 +6,11 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 17:57:32 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/03/16 16:39:30 by baavril          ###   ########.fr       */
+/*   Updated: 2019/05/06 17:56:06 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ls_list.h"
+#include "list.h"
 #include <stdlib.h>
 
 static void		ft_part_list(t_flist *lst_start, t_flist **new_head)

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfreeone.c                                    :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 01:47:36 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/05/06 17:53:39 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/06/22 15:15:39 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/06/29 17:54:30 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include "libft.h"
-#include <stdlib.h>
+#ifndef ENV_H
+# define ENV_H
 
-void	ft_listfreeone(t_arglist **alst)
+typedef struct		s_env
 {
-	if (alst && *alst)
-	{
-		free((*alst)->arg);
-		ft_memdel((void**)alst);
-	}
-}
+	char			**value;
+	int				empty_lines;
+}					t_env;
+
+#endif

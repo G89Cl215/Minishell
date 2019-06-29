@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfreeone.c                                    :+:      :+:    :+:   */
+/*   ft_tabcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 01:47:36 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/05/06 17:53:39 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/05/20 16:17:38 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/05/20 16:41:32 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include "libft.h"
 #include <stdlib.h>
+#include "libft.h"
 
-void	ft_listfreeone(t_arglist **alst)
+char	**ft_tabcpy(char **tab)
 {
-	if (alst && *alst)
+	char	**cpy;
+	size_t	len;
+
+	len = ft_tablen(tab) + 1;
+	if (!(cpy = (char**)malloc(sizeof(char*) * len)))
+		return (NULL);
+	len = 0;
+	while (tab[len])
 	{
-		free((*alst)->arg);
-		ft_memdel((void**)alst);
+		if (!(cpy[len] = ft_strdup(tab[len])))
+			return (NULL);
+		len++;
 	}
+	cpy[len] = NULL;
+	return (cpy);
 }

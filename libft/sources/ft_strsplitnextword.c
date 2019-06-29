@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfreeone.c                                    :+:      :+:    :+:   */
+/*   ft_strsplitnextword.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 01:47:36 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/05/06 17:53:39 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/04/15 15:26:03 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/04/15 17:30:28 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
 #include "libft.h"
-#include <stdlib.h>
+#include <stddef.h>
 
-void	ft_listfreeone(t_arglist **alst)
+static size_t	ft_word_len(char const *str, char c)
 {
-	if (alst && *alst)
+	size_t	k;
+
+	k = 0;
+	while (*str && *str - c)
 	{
-		free((*alst)->arg);
-		ft_memdel((void**)alst);
+		str++;
+		k++;
 	}
+	return (k);
+}
+
+char			*ft_strsplitnextword(char const *str, char c)
+{
+	if (!str || !c)
+		return (NULL);
+	return (ft_strndup(str, ft_word_len(str, c)));
 }

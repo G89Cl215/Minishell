@@ -6,33 +6,23 @@
 #    By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 22:11:12 by tgouedar          #+#    #+#              #
-#    Updated: 2019/04/15 13:54:07 by tgouedar         ###   ########.fr        #
+#    Updated: 2019/05/06 17:56:23 by tgouedar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
-SRCFILE	= ft_flstadd.c\
-		  ft_flstadd_back.c\
-		  ft_reclistadd.c\
-		  ft_newdir_nod.c\
-		  ft_lstnew.c\
-		  ft_lstfree.c\
-		  ft_lstfreeone.c\
-		  ft_free_reclist.c\
-		  ft_relink.c\
-		  ft_revrelink.c\
-		  parse_sort.c\
-		  ft_recmerge_sort.c\
-		  ft_fmerge_sort.c\
-		  ft_ascii_cmp.c\
-		  ft_time_cmp.c\
-
+SRCFILE	= ft_listadd.c \
+		  ft_listadd_back.c \
+		  ft_lstfree.c \
+		  ft_lstfreeone.c \
+		  ft_lstnew.c \
+	
 SRCDIR	= ./
 SRC		= $(addprefix $(SRCDIR),$(SRCFILE))
 
-HDR_DIR	= ../../includes\
+HDR_DIR	= ../../libft/includes\
 		  ..\
 		  .
 

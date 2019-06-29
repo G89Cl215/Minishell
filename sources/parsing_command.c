@@ -6,19 +6,25 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 15:06:55 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/04/29 22:39:07 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/06/26 20:35:38 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
 #include "libft.h"
+#include "minishell.h"
 #include <stdlib.h>
 
-static size_t	ft_wordlen(char *str, char delim)
+
+/*
+static size_t	ft_wordlen(char *str)
 {
 	size_t	len;
+	char	delim;
 
-	len = 1;
+	len = 0;
+	delim = (*str =='\'' || *str == '\"') ? *str : ' ';
+	if (*str =='\'' || *str == '\"')
+	   str++;
 	while ((str[len]) && str[len] != delim)
 	{
 		if (str[len] == '\\')
@@ -29,20 +35,26 @@ static size_t	ft_wordlen(char *str, char delim)
 		}
 		if (delim == ' ' && (str[len] == '\'' || str[len] == '\"'))
 		{
-			ft_memmove(str + len, str + len + 1, ft_strlen(str + len));
 			delim = str[len];
+			ft_memmove(str + len, str + len + 1, ft_strlen(str + len));
+			len--;
+		//	printf("new_delim : %c\n", delim);
 		}
 		len++;
 	}
-/*	if (delim != ' ' && !(str[len]))
-		faire intervenir les foctions dquotes et quotes */
-	return (len - 1);
-}
+	if (delim != ' ' && !(str[len]))
+		faire intervenir les foctions dquotes et quotes
+	return (len);
+}*/
+
+
 
 static size_t	ft_count_args(t_arglist *arg_list)
 {
 	size_t	ac;
-	while (arg_list->next)
+
+	ac = 0;
+	while (arg_list)
 	{
 		ac += arg_list->to_link;
 		arg_list = arg_list->next;
@@ -52,9 +64,9 @@ static size_t	ft_count_args(t_arglist *arg_list)
 
 static char		**ft_make_args(t_arglist *arg_list)
 {
-	size_t	i;
-	size_t	ac;
-	char	**av;
+	size_t		i;
+	size_t		ac;
+	char		**av;
 	t_arglist	*voyager;
 
 	i = 0;
@@ -62,10 +74,12 @@ static char		**ft_make_args(t_arglist *arg_list)
 	voyager = arg_list;
 	if (!(av = (char**)malloc(sizeof(char*) * (ac + 1))))
 		return (NULL);
-	while (voyager)
+//	ft_putendl("malloc_ok");
+	while (voyager && i < ac)
 	{
 		if (!(av[i] = ft_strdup(voyager->arg)))
 			return (NULL);
+//		printf("testword[0]parsed : |%s|\n", av[0]);
 		while (!(voyager->to_link))
 		{
 			voyager = voyager->next;
@@ -73,37 +87,39 @@ static char		**ft_make_args(t_arglist *arg_list)
 				return (NULL);
 		}
 		voyager = voyager->next;
+		
+//		printf("word[%zu]parsed : |%s|\n", i, av[i]);
+		
 		i++;
 	}
+//	printf("before: |%p|, i = %zu\n", av[0], i);
+//	printf("testword[0]parsed : |%s|\n", av[0]);
+//	printf("%p\n", av[i]);
 	av[i] = NULL;
-	ft_listfree(&arg_list); //double free avec le strappend ?
+//	printf("testword[0]parsed : |%s|\n", av[0]);
+//	printf("testword[0]parsed : |%p|, i = %zu\n", av[0], i);
+//	ft_putendl("arg_v fini");
+//	ft_listfree(&arg_list); //double free avec le strappend ?
 	return (av);
 }
-
-char			**ft_command_parsing(char *cmd)
+/*
+void			ft_print_list(t_arglist *list)
 {
-	size_t		i;
-	size_t		len;
-	int			flag;
-	t_arglist		*arg_list;
-	t_arglist		*new_link;
-
-	len = ft_wordlen(cmd, ' ');
-	ft_listadd_back(&arg_list, ft_listnewword(cmd, len));
-	i += len + 1;
-	while (cmd[i])
+	while (list)
 	{
-		while (cmd[i] == ' ' && cmd[i + 1] == ' ')
-			i++;
-		if (cmd[i] == '\'' || cmd[i] == '\"' || cmd[i] == ' ')
-		{
-			len = ft_wordlen(cmd + i, cmd[i]);
-			new_link = ft_listnewword(cmd + i + 1, len);
-			i += len + 1;
-			new_link->to_link = (cmd[i + 1] == ' ');
-			ft_listadd_back(&arg_list, new_link);
-		}
-		i++;
+		printf("|%s|\n", list->arg);
+		ft_putnbr(list->to_link);
+		ft_putendl("\n");
+		list = list->next;
 	}
-	return (ft_make_args(arg_list));
+}
+*/
+
+char			**ft_command_parsing(t_env *env, char *cmd)
+{
+	t_arglist		*arg_list;
+
+	arg_list = ft_tokenizing(cmd, 0);
+	ft_var_expanding(env, arg_list);
+	return (ft_make_args(arg_list));	
 }
