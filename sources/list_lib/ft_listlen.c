@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabfree.c                                       :+:      :+:    :+:   */
+/*   ft_listlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 16:47:22 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/07/04 16:42:48 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/07/08 16:45:10 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/07/08 16:48:54 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "list.h"
 
-void	ft_tabfree(char **tab)
+size_t	ft_listlen(t_arglist *voyager)
 {
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
-		ft_strdel(&(tab[i++]));
-	free((void**)tab);
+	while (voyager)
+	{
+		i++;
+		voyager = voyager->next;
+	}
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 13:33:11 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/06/29 19:19:59 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/09 07:22:41 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static int		ft_update_pwd(t_env * env, char *new_pwd, char flag)
+static int		ft_update_pwd(t_env *env, char *new_pwd, char flag)
 {
 	char	*old_pwd;
 	char	pwd[PATH_MAX];
@@ -42,8 +42,7 @@ static int		ft_update_pwd(t_env * env, char *new_pwd, char flag)
 	return (EXEC_SUCCESS);
 }
 
-
-int				ft_cd_exec(t_env *env, char *new_pwd)
+static int		ft_cd_exec(t_env *env, char *new_pwd)
 {
 	char	*target;
 
@@ -51,26 +50,25 @@ int				ft_cd_exec(t_env *env, char *new_pwd)
 	{
 		if ((target = ft_get_env_var(env, "HOME")))
 			return (ft_update_pwd(env, target, 0));
-		else
-			ft_printf("%s: cd: HOME not set\n", NAME);
-			return (EXEC_FAILURE);
+		ft_printf("%s: cd: HOME not set\n", NAME);
+		return (UNSET_VAR);
 	}
 	if (!(ft_strcmp(new_pwd, "-")))
 	{
 		if ((target = ft_get_env_var(env, "OLDPWD")))
-			return (ft_update_pwd(env, target, 0));
-		else
 		{
-			ft_printf("%s: cd: OLDPWD not set\n", NAME);
-			return (EXEC_FAILURE);
+			ft_putendl(target);
+			return (ft_update_pwd(env, target, 0));
 		}
+		ft_printf("%s: cd: OLDPWD not set\n", NAME);
+		return (UNSET_VAR);
 	}
 	else
 		return (ft_update_pwd(env, new_pwd, 1));
 	return (EXEC_SUCCESS);
 }
 
-static int	ft_find_target(size_t *i, char **av)
+static int		ft_find_target(size_t *i, char **av)
 {
 	size_t	len;
 
@@ -94,20 +92,19 @@ static int	ft_find_target(size_t *i, char **av)
 	return (TARGET_FOUND);
 }
 
-int			ft_cd(t_env *env, char **av)
+int				ft_cd(t_env *env, char **av, int *status)
 {
-	int		result;
 	size_t	target_index;
 
-	result = ft_find_target(&target_index, av);
-	if (result == INVALID_OPTION)
-		ft_printf("%s: cd: %s: invalid option\ncd: usage: cd [-L|-P] [dir]\n",
-											NAME, av[target_index]);
-	if (result != TARGET_FOUND)
+	*status = ft_find_target(&target_index, av);
+	if (*status != TARGET_FOUND)
 		return (EXEC_FAILURE);
-	result = ft_cd_exec(env, av[target_index]);
-	if (result == TARGET_NOT_FOUND)
-		ft_printf("%s: cd: %s: No such file or directory\n",
-		NAME, (ft_strcmp(av[target_index], "-")) ? av[target_index] : "OLDPWD");
-	return (result);
+	*status = ft_cd_exec(env, av[target_index]);
+	return ((*status == EXEC_SUCCESS || *status == UNSET_VAR)
+											? EXEC_SUCCESS : target_index);
+}
+
+void			ft_cd_usage(void)
+{
+	ft_putendl("cd: usage: cd [-L|-P] [dir]");
 }

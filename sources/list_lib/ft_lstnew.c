@@ -6,7 +6,7 @@
 /*   By: baavril <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:33:48 by baavril           #+#    #+#             */
-/*   Updated: 2019/06/25 13:40:12 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:11:19 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_arglist		*ft_listnewstr(char const *arg)
+t_arglist		*ft_listnewstr(char const *arg, int to_link, char delim)
 {
 	t_arglist *new;
 
@@ -25,10 +25,13 @@ t_arglist		*ft_listnewstr(char const *arg)
 	else if (!(new->arg = ft_strdup(arg)))
 		return (NULL);
 	new->next = NULL;
+	new->to_link = to_link;
+	new->delim = delim;
 	return (new);
 }
 
-t_arglist		*ft_listnewword(char const *arg, size_t n)
+t_arglist		*ft_listnewword(char const *arg, size_t n, int to_link,
+																	char delim)
 {
 	t_arglist *new;
 
@@ -36,8 +39,11 @@ t_arglist		*ft_listnewword(char const *arg, size_t n)
 		return (NULL);
 	if (arg == NULL)
 		new->arg = NULL;
-	else if (!(new->arg = ft_strndup(arg, n)))
+	else if (!(new->arg = ft_strnew(n)))
 		return (NULL);
+	ft_memccpy(new->arg, arg, '\0', n);
 	new->next = NULL;
+	new->to_link = to_link;
+	new->delim = delim;
 	return (new);
 }

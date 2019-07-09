@@ -6,7 +6,7 @@
 #    By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 22:11:12 by tgouedar          #+#    #+#              #
-#    Updated: 2019/05/06 17:56:23 by tgouedar         ###   ########.fr        #
+#    Updated: 2019/07/08 16:49:30 by tgouedar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCFILE	= ft_listadd.c \
 		  ft_lstfree.c \
 		  ft_lstfreeone.c \
 		  ft_lstnew.c \
-	
+		  ft_listlen.c \
+
 SRCDIR	= ./
 SRC		= $(addprefix $(SRCDIR),$(SRCFILE))
 

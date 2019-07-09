@@ -6,71 +6,102 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:31:48 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/06/29 19:20:14 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/09 03:21:48 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "libft.h"
 #include "minishell.h"
-#include "dispatcher.h"
+#include <stdlib.h>
 
-static int	ft_create_all_var(t_env *env, char **av)
+static int		ft_set_tmp_env(t_env *tmp_env, char **av, size_t i)
 {
-	size_t	i;
-	char	*var_value;
+	char	*eq;
 
-	i = 0;
-	while (av[++i])
+	if (!(ft_strcmp(av[i], "-u")) && (av[i + 1]))
 	{
-		var_value = ft_strchr(av[i], '=');
-		*var_value = '\0';
-		var_value++;
-		ft_set_env_var(env, av[i], var_value);
+		ft_unset_env_var(tmp_env, av[i + 1]);
+		return (2);
 	}
-	return (EXEC_SUCCESS);
+	if (!(ft_strcmp(av[i], "-P")) && (av[i + 1]))
+	{
+		ft_set_env_var(tmp_env, "PATH", av[i + 1]);
+		return (2);
+	}
+	if ((eq = ft_strchr(av[i], '=')))
+	{
+		*(eq++) = '\0';
+		ft_set_env_var(tmp_env, av[i], eq);
+		*(--eq) = '=';
+		return (1);
+	}
+	return (1);
 }
 
-static int	ft_all_args_are_var(char **av)
+static int		ft_construct_tmp_env(t_env *env, t_env *tmp_env, char **av,
+																	size_t cmd)
 {
 	size_t	i;
 
-	i = 0;
-	while (av[++i])
-		if (!(ft_strchr(av[i], '=')))
-			break ;
-	return (!(av[i]));
-}
-
-int		ft_setenv(t_env *env, char **av)
-{
-	size_t	len;
-
-	len = ft_tablen(av);
-	if (len == 1)
-		return (ft_env(env, av));
-	if (ft_all_args_are_var(av))
-		return (ft_create_all_var(env, av));
-	if	(ft_strchr(av[1], '='))
-		ft_printf("%s: setenv: No '=' allowed in variable name\n", NAME);
-	else if (len < 4)
+	i = 1;
+	if ((av[i]) && !(ft_strcmp(av[i], "-i")))
 	{
-		ft_set_env_var(env, av[1], (len == 3) ? av[2] : NULL);
-		return (EXEC_SUCCESS);
+		if (!(tmp_env->value = (char**)malloc(2 * sizeof(char*))))
+			ft_crisis_exit(MALLOC_ERR);
+		tmp_env->value[0] = NULL;
+		tmp_env->value[1] = NULL;
+		tmp_env->empty_lines = 1;
+		i++;
 	}
 	else
 	{
-		ft_printf("%s: setenv: wrong number of arg\n", NAME); 
-		ft_putendl("setenv: usage: setenv VAR [VALUE]");
+		tmp_env->value = ft_tabcpy(env->value);
+		tmp_env->empty_lines = 0;
 	}
-	return (EXEC_FAILURE);
+	while (i < cmd)
+		i += ft_set_tmp_env(tmp_env, av, i);
+	return (0);
 }
 
-int		ft_unsetenv(t_env *env, char **av)
+static size_t	ft_cmd_start(char **av)
 {
-	if (ft_tablen(av) == 2)
+	size_t		i;
+
+	i = 1;
+	if ((av[i]) && !(ft_strcmp(av[i], "-i")))
+		i++;
+	while (av[i])
 	{
-		ft_unset_env_var(env, av[1]);
-		return (EXEC_SUCCESS);
+		if ((!(ft_strcmp(av[i], "-u")) && (av[i + 1]))
+		|| (!(ft_strcmp(av[i], "-P")) && (av[i + 1])))
+			i += 2;
+		else if (ft_strchr(av[i], '='))
+			i++;
+		else
+			break ;
 	}
-	return (EXEC_FAILURE);
+	return ((av[i]) ? i : 0);
+}
+
+int				ft_env(t_env *env, char **av, int *status)
+{
+	int		i;
+	int		signal;
+	t_env	tmp_env;
+
+	i = ft_cmd_start(av);
+	ft_construct_tmp_env(env, &tmp_env, av, (i) ? i : ft_tablen(av));
+	if (i == 0)
+	{
+		while (((tmp_env.value)[i]))
+			ft_putendl((tmp_env.value)[i++]);
+		ft_tabfree(tmp_env.value);
+		return (*status = EXEC_SUCCESS);
+	}
+	else
+		signal = ft_exec(env, &tmp_env, &(av[i]), status);
+	if ((tmp_env.value))
+		ft_tabfree(tmp_env.value);
+	return (signal == EXEC_SUCCESS ? EXEC_SUCCESS : i);
 }

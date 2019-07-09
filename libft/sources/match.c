@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   match.c                                            :+:      :+:    :+:   */
+/*   ft_match.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baavril <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 08:48:42 by baavril           #+#    #+#             */
-/*   Updated: 2019/02/13 12:01:27 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:00:57 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		match(char *s1, char *s2)
+int		ft_match(char *s1, char *s2, int is_esc)
 {
-	if (*s1 == *s2 && *s1 == '\0' && *s2 == '\0')
+	if (!(*s1) && !(*s2))
 		return (1);
-	if (*s1 != '\0' && *s2 == '*')
-		return (match(s1 + 1, s2) || match(s1, s2 + 1));
-	if (*s1 == '\0' && *s2 == '*')
-		return (match(s1, s2 + 1));
-	if (*s1 == *s2 && *s1 != '\0' && *s2 != '\0')
-		return (match(s1 + 1, s2 + 1));
+	if (!(is_esc) && *s2 == '\\')
+		return (ft_match(s1, s2 + 1, 1));
+	if ((*s1) && *s2 == '*' && !(is_esc))
+		return (ft_match(s1 + 1, s2, 0) || ft_match(s1, s2 + 1, 0));
+	if (!(*s1) && *s2 == '*' && !(is_esc))
+		return (ft_match(s1, s2 + 1, 0));
+	if ((*s1 == *s2) || (*s2 == '\?' && (*s1) && !(is_esc)))
+		return (ft_match(s1 + 1, s2 + 1, 0));
 	return (0);
 }

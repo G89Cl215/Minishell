@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:12:22 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/06/29 19:16:22 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:16:10 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ int		ft_strisnum(char *str)
 {
 	size_t		i;
 
-	i = (*str == '-' || *str == '+') ? 1 : 0;
-	while (str[i] && ft_isdigit(str[i]))
-		i++;
-	return (!(str[i]));
+	if ((str))
+	{
+		i = (*str == '-' || *str == '+') ? 1 : 0;
+		while ((str[i]) && ft_isdigit(str[i]))
+			i++;
+	}
+	return ((str) && !(str[i]));
 }

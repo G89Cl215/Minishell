@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 21:27:42 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/04/15 17:35:33 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/02 09:57:37 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char			**ft_strsplit(char const *str, char c)
 
 	if (!(k = 0) && (!str || !c))
 		return (NULL);
-	if (!(res = (char**)malloc(sizeof(*res) * ft_word(str, c) + 1)))
+	if (!(res = (char**)malloc(sizeof(*res) * (ft_word(str, c) + 1))))
 		return (NULL);
 	while (!(l = 0) && *str)
 	{
@@ -51,6 +51,6 @@ char			**ft_strsplit(char const *str, char c)
 		res[k++] = ft_strndup(str, l);
 		str += l;
 	}
-	res[k] = 0;
+	res[k] = NULL;
 	return (res);
 }

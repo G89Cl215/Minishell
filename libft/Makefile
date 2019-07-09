@@ -6,7 +6,7 @@
 #    By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 22:11:12 by tgouedar          #+#    #+#              #
-#    Updated: 2019/06/29 19:16:56 by tgouedar         ###   ########.fr        #
+#    Updated: 2019/07/08 16:35:56 by tgouedar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,7 +138,7 @@ $(OBJ_DIR)		:
 	@/bin/mkdir -p $(OBJ_DIR)
 
 ls				: $(NAME)
-	@make -C $(LS) 
+	@make -C $(LS)
 
 clean			:
 	@make clean -C $(PRINTF_PATH)

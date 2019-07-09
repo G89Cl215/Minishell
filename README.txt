@@ -6,10 +6,23 @@
 #    By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 05:00:10 by tgouedar          #+#    #+#              #
-#    Updated: 2019/03/27 21:13:55 by tgouedar         ###   ########.fr        #
+#    Updated: 2019/07/01 15:47:48 by tgouedar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
+The following program is a rudimentary shell with a couple of built-ins. It has
+a cd, an echo and an exit feature. these two are as close as their POSIX
+counterpart (except maybe for their return values). It also possesses three
+tools to edit and display the environment of the shell :
+	o>	env ->		is a simple display
+	o>	setenv ->	allows to set a single var with 2 arguments
+VAR_NAME [VAR_VALUE] (value is NULL if ommitted) ; or multiple variabless with a
+series of [NAME=[VALUE]] arguments>
+	o>	unsetenv ->	allows to destroy a environment variable
+
+The end of the README are scraps of mans and research bits I dimmed useful to
+use during the project.
 
 --=-=--							ENV VARIABLES							--=-=--
 

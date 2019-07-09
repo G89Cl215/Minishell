@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option.h                                           :+:      :+:    :+:   */
+/*   option_ls.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/17 16:50:56 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/04/06 18:11:58 by tgouedar         ###   ########.fr       */
+/*   Created: 2019/07/01 13:56:40 by tgouedar          #+#    #+#             */
+/*   Updated: 2019/07/01 13:56:54 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPTION_H
-# define OPTION_H
+#ifndef OPTION_LS_H
+# define OPTION_LS_H
 
 # include <stdbool.h>
 # define OPT "Raglnort1"
