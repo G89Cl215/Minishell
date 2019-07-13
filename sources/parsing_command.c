@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 15:06:55 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/07/08 21:26:49 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/13 20:30:36 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char		**ft_make_args(t_arglist *arg_list)
 	{
 		if (!(av[i] = ft_strdup(voyager->arg)))
 			ft_crisis_exit(MALLOC_ERR);
-		while (!(voyager->to_link) && (voyager->arg))
+		while (!(voyager->to_link) && (voyager->next))
 		{
 			voyager = voyager->next;
 			if (!(ft_strappend(&(av[i]), &(voyager->arg))))
