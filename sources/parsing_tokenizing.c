@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:23:48 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/07/04 23:45:44 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/07/13 20:37:26 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_arglist			*ft_tokenizing(char *cmd, char flag)
 	if (!(cmd[i]))
 	{
 		if (flag == QUOTES || flag == DQUOTES)
-			ft_listadd_back(&arg_list, ft_listnewstr("\n", 1, flag));
+			ft_listadd_back(&arg_list, ft_listnewstr("\n", 0, flag));
 		else if (flag == NEWLINE)
 			flag = NO_DELIM;
 	}
