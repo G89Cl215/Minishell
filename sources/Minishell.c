@@ -6,7 +6,7 @@
 /*   By: tgouedar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 14:46:24 by tgouedar          #+#    #+#             */
-/*   Updated: 2019/07/09 08:46:54 by tgouedar         ###   ########.fr       */
+/*   Updated: 2019/08/22 10:41:17 by tgouedar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_exec(t_env *env, t_env *env_exec, char **cmd_av, int *status)
 {
 	int		signal;
 
-	signal = ft_built_in(env, cmd_av, status);
+	signal = ft_built_in(env_exec, cmd_av, status);
 	if (signal == NOT_BI)
 	{
 		signal = ft_fork_and_exec(env, env_exec, cmd_av, status);
