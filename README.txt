@@ -12,7 +12,7 @@
 
 
 The following program is a rudimentary shell with a couple of built-ins. It has
-a cd, an echo and an exit feature. these two are as close as their POSIX
+a cd, an echo and an exit feature. These two are as close as their POSIX
 counterpart (except maybe for their return values). It also possesses three
 tools to edit and display the environment of the shell :
 	o>	env ->		is a simple display
